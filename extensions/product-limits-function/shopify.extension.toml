@@ -1,0 +1,21 @@
+api_version = "2025-07"
+
+[[extensions]]
+name = "t:name"
+handle = "product-limits-function"
+type = "function"
+uid = "9beb9559-a34a-eca2-aa94-2cf3baa77d52afcba76e"
+description = "t:description"
+
+[extensions.ui]
+handle = "product-limits-function-ui"
+
+[[extensions.targeting]]
+target = "cart.validations.generate.run"
+input_query = "src/cart_validations_generate_run.graphql"
+export = "cart_validations_generate_run"
+
+[extensions.build]
+command = "cargo build --target=wasm32-wasip1 --release"
+path = "target/wasm32-wasip1/release/cart-checkout-validation.wasm"
+watch = ["src/**/*.rs"]

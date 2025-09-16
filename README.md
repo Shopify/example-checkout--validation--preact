@@ -1,2 +1,15 @@
-# example-checkout--validation--preact
-Example application for validations in checkout
+# Shopify App Example: checkout validations
+
+This repo contains an example app that uses Shopify cart and checkout validations functions to present violations to a user.
+
+FIXME: next link is old location, we'll be updating this.
+
+For more information and for a walkthrough of this code, review our tutorial: [create a validation](https://shopify.dev/docs/apps/build/checkout/cart-checkout-validation/create-server-side-validation-function).
+
+## Running this app
+
+To run this app locally, clone the repository and then follow our [Work on an existing app](https://shopify.dev/docs/apps/tools/cli/existing) tutorial to install the project dependencies and preview the app.
+
+## Contributing
+
+This repository is for example purposes only. It doesn't accept issues or contributions.
