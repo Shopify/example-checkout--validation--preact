@@ -1,14 +1,14 @@
 use shopify_function::prelude::*;
 use std::process;
 
-pub mod run;
+pub mod cart_validations_generate_run;
 
 #[typegen("schema.graphql")]
 mod schema {
     #[query(
-        "src/run.graphql",
+        "src/cart_validations_generate_run.graphql",
         custom_scalar_overrides = {
-            "Input.validation.metafield.jsonValue" => super::run::Configuration
+            "Input.validation.metafield.jsonValue" => super::cart_validations_generate_run::Configuration
         }
     )]
     pub mod run {}
