@@ -1,6 +1,6 @@
 import "@shopify/ui-extensions/preact";
 import { render } from "preact";
-import { useState, useEffect } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 export default async () => {
   const existingDefinition = await getMetafieldDefinition();
@@ -28,10 +28,6 @@ export default async () => {
 function Extension({ configuration, products }) {
   const [variantLimits, setVariantLimits] = useState(configuration);
   const [errors, setErrors] = useState([]);
-
-  useEffect(() => {
-    console.log(variantLimits);
-  }, [variantLimits]);
 
   if (!products || products.length === 0) {
     return <s-text>No products found.</s-text>;
