@@ -40,6 +40,19 @@ function Extension({ configuration, products }) {
     );
   };
 
+  const applyMetafieldUpdate = async (limits) => {
+    const result = await shopify.applyMetafieldChange({
+      type: "updateMetafield",
+      namespace: "$app:product-limits",
+      key: "product-limits-values",
+      value: JSON.stringify(limits),
+    });
+
+    if (result.type === "error") {
+      setErrors([result.message]);
+    }
+  };
+
   const updateVariantLimit = async (variantId, value) => {
     setErrors([]);
 
@@ -47,19 +60,10 @@ function Extension({ configuration, products }) {
       ...variantLimits,
       [variantId]: value,
     };
+
     setVariantLimits(newLimits);
 
-    // Apply changes using Shopify's applyMetafieldChange
-    const result = await shopify.applyMetafieldChange({
-      type: "updateMetafield",
-      namespace: "$app:product-limits",
-      key: "product-limits-values",
-      value: JSON.stringify(newLimits),
-    });
-
-    if (result.type === "error") {
-      setErrors([result.message]);
-    }
+    await applyMetafieldUpdate(newLimits);
   };
 
   // Flatten products and variants for table display with better grouping
@@ -84,16 +88,16 @@ function Extension({ configuration, products }) {
   });
 
   return (
-    <s-function-settings>
+    <s-function-settings onSave={() => applyMetafieldUpdate(variantLimits)}>
       <ErrorBanner errors={errors} />
       <s-table variant="auto">
         <s-table-header-row>
-          <s-table-header>Product</s-table-header>
+          <s-table-header listSlot="primary">Product</s-table-header>
           <s-table-header>Variant</s-table-header>
           <s-table-header>Limit</s-table-header>
         </s-table-header-row>
         <s-table-body>
-          {tableRows.map((row, index) => (
+          {tableRows.map((row) => (
             <s-table-row key={`${row.product.title}-${row.variant.id}`}>
               <s-table-cell>
                 {row.isFirstVariant && (
@@ -118,6 +122,7 @@ function Extension({ configuration, products }) {
               </s-table-cell>
               <s-table-cell>
                 <VariantNumberField
+                  labelValue={`${row.product.title}, ${row.variant.title}`}
                   value={variantLimits[row.variant.id]}
                   name={row.variant.id}
                   onChange={(value) =>
@@ -146,12 +151,14 @@ function ErrorBanner({ errors }) {
   );
 }
 
-function VariantNumberField({ value, onChange, name }) {
+function VariantNumberField({ labelValue, value, onChange, name }) {
   return (
     <s-number-field
+      labelAccessibilityVisibility="exclusive"
       placeholder="Set limit"
       value={value || ""}
       name={`${name}-number`}
+      label={`Set a limit for ${labelValue}`}
       min={0}
       onChange={(event) => onChange(event.target.value)}
     />
