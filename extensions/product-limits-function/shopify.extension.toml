@@ -1,4 +1,4 @@
-api_version = "2025-07"
+api_version = "2025-10"
 
 [[extensions]]
 name = "t:name"
@@ -7,8 +7,10 @@ type = "function"
 uid = "9beb9559-a34a-eca2-aa94-2cf3baa77d52afcba76e"
 description = "t:description"
 
+#[START validation-settings.handle-name-function]
 [extensions.ui]
 handle = "product-limits-function-ui"
+#[END validation-settings.handle-name-function]
 
 [[extensions.targeting]]
 target = "cart.validations.generate.run"
@@ -19,3 +21,8 @@ export = "cart_validations_generate_run"
 command = "cargo build --target=wasm32-wasip1 --release"
 path = "target/wasm32-wasip1/release/cart-checkout-validation.wasm"
 watch = ["src/**/*.rs"]
+
+#[START validation-settings.scopes]
+[access_scopes]
+scopes = "read_products"
+#[END validation-settings.scopes]
