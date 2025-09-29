@@ -2,9 +2,7 @@
 
 This repo contains an example app that uses Shopify cart and checkout validations functions to present violations to a user.
 
-FIXME: next link is old location, we'll be updating this.
-
-For more information and for a walkthrough of this code, review our tutorial: [create a validation](https://shopify.dev/docs/apps/build/checkout/cart-checkout-validation/create-server-side-validation-function).
+For more information and for a walkthrough of this code, review our tutorials for [creating checkout  validations](https://shopify.dev/docs/apps/build/checkout/cart-checkout-validation).
 
 ## Running this app
 
