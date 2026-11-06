@@ -18,8 +18,8 @@ input_query = "src/cart_validations_generate_run.graphql"
 export = "cart_validations_generate_run"
 
 [extensions.build]
-command = "cargo build --target=wasm32-wasip1 --release"
-path = "target/wasm32-wasip1/release/cart-checkout-validation.wasm"
+command = "cargo build --target=wasm32-unknown-unknown --release"
+path = "target/wasm32-unknown-unknown/release/cart-checkout-validation.wasm"
 watch = ["src/**/*.rs"]
 
 #[START validation-settings.scopes]
