@@ -6,7 +6,7 @@ For more information and for a walkthrough of this code, review our tutorials fo
 
 ## Running this app
 
-To run this app locally, clone the repository and then follow our [Work on an existing app](https://shopify.dev/docs/apps/tools/cli/existing) tutorial to install the project dependencies and preview the app.
+To run this app locally, clone the repository, run `pnpm install --frozen-lockfile`, and follow our [Work on an existing app](https://shopify.dev/docs/apps/tools/cli/existing) tutorial to preview the app. Run `pnpm test` for the settings configuration regression tests.
 
 ## Contributing
 

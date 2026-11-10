@@ -1,6 +1,7 @@
 import "@shopify/ui-extensions/preact";
 import { render } from "preact";
 import { useState } from "preact/hooks";
+import { createConfiguration, readLimits } from "./configuration.mjs";
 
 export default async () => {
   const existingDefinition = await getMetafieldDefinition();
@@ -26,7 +27,7 @@ export default async () => {
 };
 
 function Extension({ configuration, products }) {
-  const [variantLimits, setVariantLimits] = useState(configuration);
+  const [variantLimits, setVariantLimits] = useState(readLimits(configuration));
   const [errors, setErrors] = useState([]);
 
   if (!products || products.length === 0) {
@@ -41,11 +42,18 @@ function Extension({ configuration, products }) {
   };
 
   const applyMetafieldUpdate = async (limits) => {
+    let configuration;
+    try {
+      configuration = createConfiguration(limits);
+    } catch (error) {
+      setErrors([error.message]);
+      return;
+    }
     const result = await shopify.applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
       key: "product-limits-values",
-      value: JSON.stringify(limits),
+      value: JSON.stringify(configuration),
     });
 
     if (result.type === "error") {
@@ -156,7 +164,7 @@ function VariantNumberField({ labelValue, value, onChange, name }) {
     <s-number-field
       labelAccessibilityVisibility="exclusive"
       placeholder="Set limit"
-      value={value || ""}
+      value={value ?? ""}
       name={`${name}-number`}
       label={`Set a limit for ${labelValue}`}
       min={0}
