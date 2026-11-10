@@ -6,7 +6,7 @@ For more information and for a walkthrough of this code, review our tutorials fo
 
 ## Running this app
 
-To run this app locally, clone the repository, run `pnpm install --frozen-lockfile`, and follow [TESTING.md](TESTING.md) to connect your own test app, build the Function, and verify checkout enforcement. Run `pnpm test` for the settings configuration regression tests.
+To run this app locally, clone the repository, run `pnpm install --frozen-lockfile`, and follow our [Work on an existing app](https://shopify.dev/docs/apps/tools/cli/existing) tutorial to preview the app. Run `pnpm test` for the settings configuration regression tests.
 
 ## Contributing
 
